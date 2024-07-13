@@ -73,17 +73,18 @@ export default function Section() {
 
       const doc = parser.parseFromString(html, "text/html");
 
-      setConfig({ ...config, ...{ title: doc.querySelector("title")?.innerText || "" } });
-      setConfig({ ...config, ...{
-        description: doc.querySelector('meta[name="description"]')?.getAttribute(
-          "content",
-        ) || ""
-      }})
-      setConfig({ ...config, ...{
-        imageURL: doc.querySelector('meta[property="og:image"]')?.getAttribute(
-          "content",
-        ) || "",
-      }})
+      setConfig({
+        ...config,
+        ...{
+          title: doc.querySelector("title")?.innerText || "",
+          description: doc.querySelector('meta[name="description"]')?.getAttribute(
+            "content",
+          ) || "",
+          imageURL: doc.querySelector('meta[property="og:image"]')?.getAttribute(
+            "content",
+          ) || ""
+        }
+      });
     } catch (error) {
       console.log(error);
     }
