@@ -82,5 +82,9 @@
     "path": "/preview",
     "blockType": "pages",
     "__resolveType": "website/pages/Page.tsx"
+  },
+  "/.deco/blocks/Preview%20%2Factions%2FNewAction.tsx.json": {
+    "blockType": "actions",
+    "__resolveType": "site/actions/NewAction.tsx"
   }
 }
