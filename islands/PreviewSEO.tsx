@@ -1,11 +1,9 @@
-import { useRef } from "preact/hooks";
+import { useState } from "preact/hooks";
 
 export default function PreviewSEO() {
-  console.log('SEO:CONFIG');
-  
   const data = localStorage.getItem('SEO:CONFIG')
-  const config = useRef(!data ? {} : JSON.parse(data))
-
+  const [ config ] = useState(!data ? {} : JSON.parse(data))
+  
   return (
     <div class="text-zinc-200 gap-4 md:gap-8 h-full flex flex-col mb-4 md:mb-8 lg:mb-10 pb-4 md:pb-8 lg:pb-10 w-full">
       <div class="w-full max-w-xl">
