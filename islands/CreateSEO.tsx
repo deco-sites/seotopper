@@ -152,8 +152,6 @@ export default function Section() {
   }, [config])
 
   useEffect(() => {
-    console.log('save config');
-    
     localStorage.setItem('SEO:CONFIG', JSON.stringify(config))
   }, [config])
 
