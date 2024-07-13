@@ -1,6 +1,6 @@
 export default function PreviewTest(config?: any) {
   return (
-    <div className="text-zinc-200 gap-4 md:gap-8 h-full flex flex-col mb-4 md:mb-8 lg:mb-10 pb-4 md:pb-8 lg:pb-10 w-full">
+    <div className="text-zinc-200 gap-4 md:gap-8 h-full flex flex-col mb-4 md:mb-8 w-full">
       <div className="w-full max-w-xl">
         <div className="text-xs text-zinc-400 uppercase mb-2">
           Google

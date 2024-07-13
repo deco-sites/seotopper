@@ -205,9 +205,9 @@ export default function Section() {
     <div className="w-full flex">
       <div
         style="width: 33.3333%"
-        class="resize-x flex-grow w-full mx-auto h-[calc(100vh-56px)] overflow-x-hidden overflow-y-scroll border-r border-accent p-4"
+        class="resize-x flex-grow w-full mx-auto h-[calc(100vh-56px)] overflow-x-hidden overflow-y-scroll border-r border-accent p-4 md:p-8"
       >
-        <div className="grid grid-cols-1 gap-8 w-full max-w-lg mx-auto py-10">
+        <div className="grid grid-cols-1 gap-8 w-full mx-auto">
           <div className="flex flex-col gap-1 text-center w-full mx-auto bg-primary border border-accent/30 rounded p-4 md:p-8 mb-4">
             <label class="text-center text-sm text-white">
               Preview, edit, and generate your metatags
@@ -354,23 +354,33 @@ export default function Section() {
             setValue={(val: string) =>
               setConfig({ ...config, ...{ pageSite: val } })}
           />
-          <button onClick={exportConfig} class="btn btn-sm btn-primary">
+          {
+            /* <button onClick={exportConfig} class="btn btn-sm btn-primary">
             Export (JSON)
-          </button>
+          </button> */
+          }
         </div>
       </div>
 
       <div
         style="width: 33.3333%"
-        class="flex-grow w-full mx-auto h-[calc(100vh-56px)] overflow-scroll border-r border-accent p-8 relative text-zinc-600"
+        class="resize-x flex-grow w-full mx-auto h-[calc(100vh-56px)] overflow-y-scroll overflow-x-auto border-r border-accent relative text-zinc-600 p-4 md:p-8"
       >
         <div className="">
-          <button
-            class="absolute right-2 top-2 btn btn-sm btn-primary"
-            onClick={copyContent}
-          >
-            Copy
-          </button>
+          <div className="absolute right-2 top-2 flex flex-wrap gap-2">
+            <button
+              class="btn btn-sm btn-primary"
+              onClick={copyContent}
+            >
+              Copy
+            </button>
+            <button
+              class="btn btn-sm btn-primary"
+              onClick={exportConfig}
+            >
+              Export
+            </button>
+          </div>
           <pre>
             <code id="code" class="text-xs">
             <span class="text-zinc-700">&lt;!-- HTML Meta Tags --&gt;</span><br />
@@ -416,7 +426,7 @@ export default function Section() {
 
       <div
         style="width: 33.3333%"
-        class="flex-grow w-full mx-auto h-[calc(100vh-56px)] overflow-scroll border-r border-accent p-8 relative text-zinc-600"
+        class="flex-grow w-full mx-auto h-[calc(100vh-56px)] overflow-y-scroll overflow-x-auto border-r border-accent relative text-zinc-600 p-4 md:p-8"
       >
         <PreviewTest
           config={config}
