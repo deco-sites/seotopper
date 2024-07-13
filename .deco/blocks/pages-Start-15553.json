@@ -10,8 +10,7 @@
       "__resolveType": "site/sections/SubMenu.tsx"
     },
     {
-      "__resolveType": "site/sections/Teste.tsx",
-      "name": "teste"
+      "__resolveType": "site/sections/CreateSEO.tsx"
     }
   ],
   "__resolveType": "website/pages/Page.tsx"

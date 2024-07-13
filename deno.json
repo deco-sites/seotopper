@@ -2,7 +2,7 @@
   "imports": {
     "site/": "./",
     "deco/": "https://cdn.jsdelivr.net/gh/deco-cx/deco@1.75.2/",
-    "apps/": "https://cdn.jsdelivr.net/gh/deco-cx/apps@0.48.1/",
+    "apps/": "https://cdn.jsdelivr.net/gh/deco-cx/apps@0.48.3/",
     "$fresh/": "https://deno.land/x/fresh@1.6.8/",
     "preact": "https://esm.sh/preact@10.19.6",
     "preact/": "https://esm.sh/preact@10.19.6/",
@@ -13,7 +13,7 @@
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
     "std/": "https://deno.land/std@0.190.0/",
     "daisyui": "npm:daisyui@4.4.19",
-    "@deco/htmx": "https://denopkg.com/deco-cx/apps@0.48.1/htmx/mod.ts"
+    "@deco/htmx": "https://denopkg.com/deco-cx/apps@0.48.3/htmx/mod.ts"
   },
   "tasks": {
     "start": "deno task bundle && deno run -A --env --config=deno.json $(deno eval 'console.log(import.meta.resolve(\"deco/hypervisor/main.ts\"))') --build-cmd 'deno task build' -- deno task dev",

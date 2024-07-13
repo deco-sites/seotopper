@@ -86,5 +86,13 @@
   "/.deco/blocks/Preview%20%2Factions%2FNewAction.tsx.json": {
     "blockType": "actions",
     "__resolveType": "site/actions/NewAction.tsx"
+  },
+  "/.deco/blocks/Preview%20%2Fsections%2FCreateSEO.tsx.json": {
+    "blockType": "sections",
+    "__resolveType": "site/sections/CreateSEO.tsx"
+  },
+  "/.deco/blocks/Preview%20%2Fsections%2FPreviewSEO.tsx.json": {
+    "blockType": "sections",
+    "__resolveType": "site/sections/PreviewSEO.tsx"
   }
 }

@@ -8,6 +8,9 @@
     },
     {
       "__resolveType": "site/sections/SubMenu.tsx"
+    },
+    {
+      "__resolveType": "site/sections/PreviewSEO.tsx"
     }
   ],
   "seo": {
