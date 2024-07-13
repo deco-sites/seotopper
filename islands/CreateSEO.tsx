@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "preact/hooks";
+import { useEffect, useCallback, useRef, useState } from "preact/hooks";
 
 import Input from "../components/Input.tsx";
 import Select from "../components/Select.tsx";
@@ -149,6 +149,12 @@ export default function Section() {
     link.download = 'config.json'
 
     link.click()
+  }, [config])
+
+  useEffect(() => {
+    console.log('save config');
+    
+    localStorage.setItem('SEO:CONFIG', JSON.stringify(config))
   }, [config])
 
   return (

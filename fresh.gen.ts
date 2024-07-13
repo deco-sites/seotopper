@@ -4,6 +4,7 @@
 
 import * as $_app from "./routes/_app.tsx";
 import * as $CreateSEO from "./islands/CreateSEO.tsx";
+import * as $PreviewSEO from "./islands/PreviewSEO.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -12,6 +13,7 @@ const manifest = {
   },
   islands: {
     "./islands/CreateSEO.tsx": $CreateSEO,
+    "./islands/PreviewSEO.tsx": $PreviewSEO,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

@@ -8,24 +8,26 @@ import * as $$$$$$$$$$$1 from "./apps/site.ts";
 import * as $$$$$$0 from "./sections/Colunas.tsx";
 import * as $$$$$$1 from "./sections/ContactSection.tsx";
 import * as $$$$$$2 from "./sections/Create.tsx";
-import * as $$$$$$3 from "./sections/Footer.tsx";
-import * as $$$$$$4 from "./sections/ItWorks.tsx";
-import * as $$$$$$5 from "./sections/Menu.tsx";
-import * as $$$$$$6 from "./sections/SubMenu.tsx";
-import * as $$$$$$7 from "./sections/Teste.tsx";
-import * as $$$$$$8 from "./sections/Theme/Theme.tsx";
+import * as $$$$$$3 from "./sections/CreateSEO.tsx";
+import * as $$$$$$4 from "./sections/Footer.tsx";
+import * as $$$$$$5 from "./sections/ItWorks.tsx";
+import * as $$$$$$6 from "./sections/Menu.tsx";
+import * as $$$$$$7 from "./sections/PreviewSEO.tsx";
+import * as $$$$$$8 from "./sections/SubMenu.tsx";
+import * as $$$$$$9 from "./sections/Theme/Theme.tsx";
 
 const manifest = {
   "sections": {
     "site/sections/Colunas.tsx": $$$$$$0,
     "site/sections/ContactSection.tsx": $$$$$$1,
     "site/sections/Create.tsx": $$$$$$2,
-    "site/sections/Footer.tsx": $$$$$$3,
-    "site/sections/ItWorks.tsx": $$$$$$4,
-    "site/sections/Menu.tsx": $$$$$$5,
-    "site/sections/SubMenu.tsx": $$$$$$6,
-    "site/sections/Teste.tsx": $$$$$$7,
-    "site/sections/Theme/Theme.tsx": $$$$$$8,
+    "site/sections/CreateSEO.tsx": $$$$$$3,
+    "site/sections/Footer.tsx": $$$$$$4,
+    "site/sections/ItWorks.tsx": $$$$$$5,
+    "site/sections/Menu.tsx": $$$$$$6,
+    "site/sections/PreviewSEO.tsx": $$$$$$7,
+    "site/sections/SubMenu.tsx": $$$$$$8,
+    "site/sections/Theme/Theme.tsx": $$$$$$9,
   },
   "actions": {
     "site/actions/NewAction.tsx": $$$$$$$$$0,
