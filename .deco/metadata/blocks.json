@@ -77,9 +77,9 @@
     "blockType": "sections",
     "__resolveType": "site/sections/Teste.tsx"
   },
-  "/.deco/blocks/pages-Contact-994067.json": {
-    "name": "Contact",
-    "path": "/contact",
+  "/.deco/blocks/pages-Preview-127555.json": {
+    "name": "Preview",
+    "path": "/preview",
     "blockType": "pages",
     "__resolveType": "website/pages/Page.tsx"
   }

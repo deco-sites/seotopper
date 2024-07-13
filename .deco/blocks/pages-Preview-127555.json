@@ -1,14 +1,13 @@
 {
-  "name": "Contact",
-  "path": "/contact",
+  "name": "Preview",
+  "path": "/preview",
   "sections": [
     {
       "__resolveType": "site/sections/Menu.tsx",
       "name": "Menu"
     },
     {
-      "__resolveType": "site/sections/ContactSection.tsx",
-      "backgroundColor": "#000000"
+      "__resolveType": "site/sections/SubMenu.tsx"
     }
   ],
   "seo": {
