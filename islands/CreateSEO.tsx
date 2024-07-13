@@ -1,11 +1,11 @@
-import { useEffect, useCallback, useRef, useState } from "preact/hooks";
+import { useCallback, useEffect, useRef, useState } from "preact/hooks";
 
 import Input from "../components/Input.tsx";
 import Select from "../components/Select.tsx";
 
 export default function Section() {
   const [searchURL, setSearchURL] = useState("https://gus.vision/");
-  
+
   const [config, setConfig] = useState({
     charset: "UTF-8",
     viewport: "width=device-width, initial-scale=1",
@@ -20,7 +20,7 @@ export default function Section() {
     themeColor: "",
     locale: "",
     pageSite: "",
-  })
+  });
 
   const options = [
     "UTF-8", // Universal character set for almost all characters
@@ -110,51 +110,53 @@ export default function Section() {
   }, [iframe]);
 
   const importConfig = useCallback(() => {
-    const input = document.createElement('input')
+    const input = document.createElement("input");
 
-    input.type = 'file'
+    input.type = "file";
 
     input.onchange = () => {
       if (input.value && input.files) {
-        const file = input.files[0]
+        const file = input.files[0];
 
         if (file) {
-          const reader = new FileReader()
+          const reader = new FileReader();
 
           reader.onloadend = () => {
             try {
-              const data = JSON.parse(reader.result as string)
-              
-              setConfig({ ...config, ...data })
+              const data = JSON.parse(reader.result as string);
+
+              setConfig({ ...config, ...data });
             } catch (error) {
-              console.log('Invalid JSON', error)
+              console.log("Invalid JSON", error);
             }
-          }
+          };
 
           reader.onerror = () => {
-            console.log('Failed to read file', reader.error);
-          }
+            console.log("Failed to read file", reader.error);
+          };
 
-          reader.readAsText(file)
+          reader.readAsText(file);
         }
       }
-    }
+    };
 
-    input.click()
-  }, [config])
+    input.click();
+  }, [config]);
 
   const exportConfig = useCallback(() => {
-    const link = document.createElement('a')
+    const link = document.createElement("a");
 
-    link.href = `data:text/plain;charset=utf-8,${encodeURIComponent(JSON.stringify(config))}`
-    link.download = 'config.json'
+    link.href = `data:text/plain;charset=utf-8,${
+      encodeURIComponent(JSON.stringify(config))
+    }`;
+    link.download = "config.json";
 
-    link.click()
-  }, [config])
+    link.click();
+  }, [config]);
 
   useEffect(() => {
-    localStorage.setItem('SEO:CONFIG', JSON.stringify(config))
-  }, [config])
+    localStorage.setItem("SEO:CONFIG", JSON.stringify(config));
+  }, [config]);
 
   return (
     <div className="w-full flex">
@@ -189,7 +191,8 @@ export default function Section() {
             formName="Charset"
             formDescription="Specifies the character encoding for the HTML document, ensuring proper display of text."
             value={config.charset}
-            setValue={(val: string) => setConfig({ ...config, ...{ charset: val } })}
+            setValue={(val: string) =>
+              setConfig({ ...config, ...{ charset: val } })}
             options={options}
           />
 
@@ -199,7 +202,8 @@ export default function Section() {
             formType="text"
             formDescription="Controls the layout and scaling of a webpage on different devices, improving responsiveness and user experience."
             value={config.viewport}
-            setValue={(val: string) => setConfig({ ...config, ...{ viewport: val } })}
+            setValue={(val: string) =>
+              setConfig({ ...config, ...{ viewport: val } })}
           />
           <Input
             formName="Title"
@@ -207,7 +211,8 @@ export default function Section() {
             formType="text"
             formDescription="Defines the title of the HTML document, displaying text in the browser tab and aiding in search engine optimization (SEO)."
             value={config.title}
-            setValue={(val: string) => setConfig({ ...config, ...{ title: val } })}
+            setValue={(val: string) =>
+              setConfig({ ...config, ...{ title: val } })}
           />
           <Input
             formName="Description"
@@ -215,7 +220,8 @@ export default function Section() {
             formType="text"
             formDescription="Provides a concise summary of the webpage's content, often used by search engines to display in search results, enhancing click-through rates."
             value={config.description}
-            setValue={(val: string) => setConfig({ ...config, ...{ description: val } })}
+            setValue={(val: string) =>
+              setConfig({ ...config, ...{ description: val } })}
           />
           <Input
             formName="Canonical URL"
@@ -223,7 +229,8 @@ export default function Section() {
             formType="text"
             formDescription="Specifies the preferred URL for a webpage, consolidating search engine ranking signals and avoiding duplicate content issues."
             value={config.canonicalURL}
-            setValue={(val: string) => setConfig({ ...config, ...{ canonicalURL: val } })}
+            setValue={(val: string) =>
+              setConfig({ ...config, ...{ canonicalURL: val } })}
           />
           <Input
             formName="Image URL"
@@ -231,7 +238,8 @@ export default function Section() {
             formType="text"
             formDescription="Specifies the image displayed when sharing the webpage on platforms like Facebook, enhancing visual appeal."
             value={config.imageURL}
-            setValue={(val: string) => setConfig({ ...config, ...{ imageURL: val } })}
+            setValue={(val: string) =>
+              setConfig({ ...config, ...{ imageURL: val } })}
           />
           <Input
             formName="Image ALT text"
@@ -239,7 +247,8 @@ export default function Section() {
             formType="text"
             formDescription="Provides alternative text for the image specified in og:image, improving accessibility and SEO when shared on platforms supporting Open Graph."
             value={config.imageAltText}
-            setValue={(val: string) => setConfig({ ...config, ...{ imageAltText: val } })}
+            setValue={(val: string) =>
+              setConfig({ ...config, ...{ imageAltText: val } })}
           />
           <Input
             formName="Favicon"
@@ -247,7 +256,8 @@ export default function Section() {
             formType="text"
             formDescription="Specifies the favicon, enhancing website recognition in browsers and bookmarks."
             value={config.favicon}
-            setValue={(val: string) => setConfig({ ...config, ...{ favicon: val } })}
+            setValue={(val: string) =>
+              setConfig({ ...config, ...{ favicon: val } })}
           />
           <Input
             formName="Page author"
@@ -255,13 +265,15 @@ export default function Section() {
             formType="text"
             formDescription="Specifies the author of the webpage, providing attribution for content creation and ownership."
             value={config.pageAuthor}
-            setValue={(val: string) => setConfig({ ...config, ...{ pageAuthor: val } })}
+            setValue={(val: string) =>
+              setConfig({ ...config, ...{ pageAuthor: val } })}
           />
           <Select
             formName="Robots"
             formDescription="Controls how search engines index and display content, influencing webpage visibility and accessibility in search results."
             value={config.robots}
-            setValue={(val: string) => setConfig({ ...config, ...{ robots: val } })}
+            setValue={(val: string) =>
+              setConfig({ ...config, ...{ robots: val } })}
             options={robotsOptions}
           />
           <Input
@@ -270,7 +282,8 @@ export default function Section() {
             formType="color"
             formDescription="Defines the color theme for the browser's UI elements when a webpage is viewed on mobile devices, enhancing user experience and brand consistency."
             value={config.themeColor}
-            setValue={(val: string) => setConfig({ ...config, ...{ themeColor: val } })}
+            setValue={(val: string) =>
+              setConfig({ ...config, ...{ themeColor: val } })}
           />
           <Input
             formName="Locale"
@@ -278,7 +291,8 @@ export default function Section() {
             formType="text"
             formDescription="Defines the language and region of a webpage, aiding in content and regional settings adaptation."
             value={config.locale}
-            setValue={(val: string) => setConfig({ ...config, ...{ locale: val } })}
+            setValue={(val: string) =>
+              setConfig({ ...config, ...{ locale: val } })}
           />
           <Input
             formName="Page site"
@@ -286,22 +300,33 @@ export default function Section() {
             formType="text"
             formDescription="The Twitter “@username” the card should be attributed to."
             value={config.pageSite}
-            setValue={(val: string) => setConfig({ ...config, ...{ pageSite: val } })}
+            setValue={(val: string) =>
+              setConfig({ ...config, ...{ pageSite: val } })}
           />
           <button class="btn btn-sm btn-secondary">Preview</button>
-          <div class="flex gap-2">
-            <button class="flex-1 btn btn-sm btn-secondary" onClick={importConfig}>Import</button>
-            <button class="flex-1 btn btn-sm btn-secondary" onClick={exportConfig}>Export</button>
-          </div>
         </div>
       </div>
       <div
         style="width: 50%"
-        class="flex-grow w-full mx-auto h-[calc(100vh-112px)] overflow-scroll border-r border-accent p-8"
+        class="flex-grow w-full mx-auto h-[calc(100vh-112px)] overflow-scroll border-r border-accent p-8 relative text-zinc-600"
       >
-        <div className="text-zinc-600 relative">
+        <div className=" ">
+          <div class="flex flex-wrap gap-2 absolute right-2 bottom-2">
+            <button
+              class="flex-1 btn btn-sm btn-primary whitespace-nowrap"
+              onClick={importConfig}
+            >
+              Import (JSON)
+            </button>
+            <button
+              class="flex-1 btn btn-sm btn-primary whitespace-nowrap"
+              onClick={exportConfig}
+            >
+              Export (JSON)
+            </button>
+          </div>
           <button
-            class="absolute right-1 top-1 btn btn-sm btn-primary"
+            class="absolute right-2 top-2 btn btn-sm btn-primary"
             onClick={copyContent}
           >
             Copy
