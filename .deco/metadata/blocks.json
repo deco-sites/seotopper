@@ -49,6 +49,10 @@
     "blockType": "sections",
     "__resolveType": "site/sections/Menu.tsx"
   },
+  "/.deco/blocks/Preview%20site%2Fsections%2FItWorks.tsx.json": {
+    "blockType": "sections",
+    "__resolveType": "site/sections/ItWorks.tsx"
+  },
   "/.deco/blocks/Preview%20%2Fsections%2FCreate.tsx.json": {
     "blockType": "sections",
     "__resolveType": "site/sections/Create.tsx"

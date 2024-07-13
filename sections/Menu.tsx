@@ -13,11 +13,11 @@ export default function Section({ name = "Seotopper" }: Props) {
       id="menu"
       data-theme="black"
     >
-      <div class="flex items-center h-full">
+      <div class="flex items-center h-full gap-4 w-full">
         <div class="flex items-center gap-3">
           <img
             src="https://seotopper.netlify.app/assets/top.svg"
-            class="max-w-full w-6"
+            class="max-w-full w-5"
             alt="Logo SeoTopper"
           />
           <span class="hidden md:block text-sm md:text-base font-medium">
@@ -25,18 +25,20 @@ export default function Section({ name = "Seotopper" }: Props) {
           </span>
         </div>
 
-        <div class="w-px bg-zinc-800 h-full mx-4"></div>
-        <button class="btn btn-sm btn-primary">Primary</button>
+        <div className="flex gap-0">
+          <input
+            type="text"
+            placeholder="https://deco.cx"
+            className="input input-sm rounded input-bordered w-full max-w-sm"
+            data-theme="black"
+          />
+          <button class="btn btn-sm btn-accent -ml-2" style="border-top-left-radius: 0; border-bottom-left-radius: 0">Fetch URL</button>
+        </div>
       </div>
-      <div class="flex">
-        {
-          /* <github-button
-          type="stargazers"
-          namespace="gustavoquinalha"
-          repo="seotopper"
-        >
-        </github-button> */
-        }
+
+      <div className="flex gap-2">
+        <button class="btn btn-sm btn-primary">Create</button>
+        <button class="btn btn-sm btn-secondary">Preview</button>
       </div>
     </div>
   );

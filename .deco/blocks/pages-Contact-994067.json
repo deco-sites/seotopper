@@ -1,7 +1,16 @@
 {
   "name": "Contact",
   "path": "/contact",
-  "sections": [],
+  "sections": [
+    {
+      "__resolveType": "site/sections/Menu.tsx",
+      "name": "Menu"
+    },
+    {
+      "__resolveType": "site/sections/ContactSection.tsx",
+      "backgroundColor": "#000000"
+    }
+  ],
   "seo": {
     "__resolveType": "website/sections/Seo/SeoV2.tsx"
   },

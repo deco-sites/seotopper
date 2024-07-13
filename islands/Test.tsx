@@ -1,40 +1,41 @@
-import { useSection } from "deco/hooks/useSection.ts";
-import { useState } from "preact/hooks";
+import { useState } from "preact/compat";
 
-export default function Counter() {
-  const [count, setCount] = useState(0);
+interface Props {
+  formName?: string;
+  formNamePlaceholder?: string;
 
-  function increment() {
-    console.log('click increment');
-    setCount(count + 1)
-  }
+  /**
+   * @format text-input
+   */
+  pageTitle?: string;
+}
 
-  function decrement() {
-    console.log('click decrement');
-    setCount(count - 1)
-  }
+export default function NameDisplay(
+  { pageTitle = "", formName = "", formNamePlaceholder = "" }: Props,
+) {
+  const [name, setName] = useState(pageTitle);
 
   return (
-    <div>
-      <button
-        onClick={decrement}
-        class="btn btn-sm btn-circle btn-outline no-animation"
-      >
-        <span class="inline [.htmx-request_&]:hidden">
-          -
-        </span>
-        <span class="loading loading-spinner hidden [.htmx-request_&]:inline" />
-      </button>
-      <span>{count}</span>
-      <button
-        onClick={increment}
-        class="btn btn-sm btn-circle btn-outline no-animation"
-      >
-        <span class="inline [.htmx-request_&]:hidden">
-          +
-        </span>
-        <span class="loading loading-spinner hidden [.htmx-request_&]:inline" />
-      </button>
+    <div class="grid grid-cols-2 gap-4 p-4">
+      <div>
+        <label
+          className="input input-bordered flex items-center gap-2"
+          data-theme="black"
+        >
+          <span className="font-bold">{formName}</span>
+          <input
+            type="text"
+            value={name}
+            onInput={(e) => setName((e.target as HTMLInputElement).value)}
+            placeholder={formNamePlaceholder}
+            className="grow"
+            data-theme="black"
+          />
+        </label>
+      </div>
+      {/* <div>
+        <p class="text-xl">{formName}: {name}</p>
+      </div> */}
     </div>
   );
 }
