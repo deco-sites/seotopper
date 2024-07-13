@@ -15,26 +15,19 @@ export default function Input(
   { formName = "", formNamePlaceholder = "", value = "", setValue }: Props,
 ) {
   return (
-    <div class="grid grid-cols-2 gap-4 p-4">
-      <div>
-        <label
-          className="input input-bordered flex items-center gap-2"
-          data-theme="black"
-        >
-          <span className="font-bold">{formName}</span>
-          <input
-            type="text"
-            value={value}
-            onInput={(e: InputEvent) => setValue && setValue((e.target as HTMLInputElement).value)}
-            placeholder={formNamePlaceholder}
-            className="grow"
-            data-theme="black"
-          />
-        </label>
-      </div>
-      {/* <div>
-        <p class="text-xl">{formName}: {name}</p>
-      </div> */}
+    <div className="flex flex-col gap-1 w-full">
+      <label className="text-sm">{formName}</label>
+      <input
+        type="text"
+        value={value}
+        onInput={(e: InputEvent) => setValue && setValue((e.target as HTMLInputElement).value)}
+        placeholder={formNamePlaceholder}
+        className="input input-sm input-bordered rounded w-full"
+        data-theme="black"
+      />
     </div>
+    /* <div>
+        <p class="text-xl">{formName}: {name}</p>
+      </div> */
   );
 }

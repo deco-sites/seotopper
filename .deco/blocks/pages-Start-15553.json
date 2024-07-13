@@ -7,6 +7,10 @@
       "name": "Seotopper"
     },
     {
+      "__resolveType": "site/sections/SubMenu.tsx",
+      "name": "SubMenu"
+    },
+    {
       "__resolveType": "site/sections/Teste.tsx",
       "name": "teste"
     }
