@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "outDir": "./dist",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "es6",
+        "moduleResolution": "node",
+        "target": "es6",
+        "jsx": "react",
+        "baseUrl": ".",
+        "paths": {
+            "react": [
+                "node_modules/preact/compat"
+            ],
+            "react-dom": [
+                "node_modules/preact/compat"
+            ]
+        },
+        "allowSyntheticDefaultImports": true
+    },
+    "include": [
+        "./src/**/*"
+    ]
+}

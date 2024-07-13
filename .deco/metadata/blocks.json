@@ -48,5 +48,35 @@
   "/.deco/blocks/Preview%20%2Fsections%2FMenu.tsx.json": {
     "blockType": "sections",
     "__resolveType": "site/sections/Menu.tsx"
+  },
+  "/.deco/blocks/Preview%20%2Fsections%2FCreate.tsx.json": {
+    "blockType": "sections",
+    "__resolveType": "site/sections/Create.tsx"
+  },
+  "/.deco/blocks/Preview%20%2Fsections%2FContactSection.tsx.json": {
+    "blockType": "sections",
+    "__resolveType": "site/sections/ContactSection.tsx"
+  },
+  "/.deco/blocks/Preview%20%2Fsections%2FNewSection.tsx.json": {
+    "blockType": "sections",
+    "__resolveType": "site/sections/NewSection.tsx"
+  },
+  "/.deco/blocks/Preview%20%2Fsections%2FColunas.tsx.json": {
+    "blockType": "sections",
+    "__resolveType": "site/sections/Colunas.tsx"
+  },
+  "/.deco/blocks/Preview%20%2Fsections%2FNameDisplaySection.tsx.json": {
+    "blockType": "sections",
+    "__resolveType": "site/sections/NameDisplaySection.tsx"
+  },
+  "/.deco/blocks/Preview%20%2Fsections%2FTeste.tsx.json": {
+    "blockType": "sections",
+    "__resolveType": "site/sections/Teste.tsx"
+  },
+  "/.deco/blocks/pages-Contact-994067.json": {
+    "name": "Contact",
+    "path": "/contact",
+    "blockType": "pages",
+    "__resolveType": "website/pages/Page.tsx"
   }
 }

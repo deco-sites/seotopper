@@ -9,7 +9,7 @@ export default defineApp(async (_req, ctx) => {
   return (
     <>
       {/* Include default fonts and css vars */}
-      <Theme colorScheme="any" />
+      <Theme colorScheme="dark" />
 
       {/* Include Icons and manifest */}
       <Head>
@@ -27,7 +27,7 @@ export default defineApp(async (_req, ctx) => {
       </Head>
 
       {/* Rest of Preact tree */}
-      <ctx.Component />
+      <ctx.Component data-theme="dark"/>
     </>
   );
 });
