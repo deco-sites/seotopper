@@ -1,8 +1,9 @@
-import { useState } from 'preact/hooks'
+import { useState, useCallback, useRef } from 'preact/hooks'
 
 import Input from "../components/Input.tsx";
 
 export default function Section() {
+  const [ searchURL, setSearchURL ] = useState('')
   const [ title, setTitle ] = useState('')
   const [ description, setDescription ] = useState('')
   const [ canonicalURL, setCanonicalURL ] = useState('')
@@ -14,6 +15,31 @@ export default function Section() {
   const [ themeColor, setThemeColor ] = useState('')
   const [ locale, setLocale ] = useState('')
   const [ pageSite, setPageSite ] = useState('')
+  
+  const doSearch = useCallback(async () => {
+    try {
+      const response = await fetch(searchURL)
+      const html = await response.text()
+
+      const parser = new DOMParser()
+    
+      const doc = parser.parseFromString(html, 'text/html');
+
+      setTitle(doc.querySelector('title')?.innerText || '');
+      setDescription(doc.querySelector('meta[name="description"]')?.getAttribute('content') || '');
+      setImageURL(doc.querySelector('meta[property="og:image"]')?.getAttribute('content') || '');
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }, [searchURL])
+
+  const iframe = useRef(null)
+
+  const loadedURL = useCallback(() => {
+    console.log(iframe.current);
+    
+  }, [iframe])
 
   return (
     <div className="w-full flex">
@@ -22,6 +48,19 @@ export default function Section() {
         class="resize-x flex-grow w-full mx-auto h-[calc(100vh-112px)] overflow-x-hidden overflow-y-scroll border-r border-accent p-4"
       >
         <div className="grid grid-cols-1 gap-8 w-full max-w-lg mx-auto py-10">
+          <div className="flex gap-0 relative w-full max-w-sm">
+            <input
+              type="text"
+              placeholder="https://deco.cx"
+              className="input input-sm rounded input-bordered w-full "
+              data-theme="black"
+              value={searchURL}
+              onInput={(ev: InputEvent) => setSearchURL((ev.target as HTMLInputElement).value)}
+            />
+            <button class="absolute right-1 top-1 btn btn-sm btn-primary -ml-2 h-6 min-h-6 py-0 text-xs" onClick={doSearch}>
+              Fetch URL
+            </button>
+          </div>
           <Input formName="Title" formNamePlaceholder="Page title" value={title} setValue={setTitle} />
           <Input formName="Description" formNamePlaceholder="Page description" value={description} setValue={setDescription} />
           <Input formName="Canonical URL" formNamePlaceholder="Page URL" value={canonicalURL} setValue={setCanonicalURL} />
@@ -55,6 +94,7 @@ export default function Section() {
         style="width: 50%"
         class="flex-grow w-full mx-auto h-[calc(100vh-112px)] overflow-x-hidden overflow-y-scroll border-r border-accent p-4"
       >
+        <iframe ref={iframe} onLoad={loadedURL} class="w-full h-full" src={searchURL} frameborder="0"></iframe>
         <div className="">
           {title}
           {description}

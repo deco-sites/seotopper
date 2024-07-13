@@ -23,18 +23,6 @@ export default function Section({ name = "Seotopper" }: Props) {
           {name}
         </span>
       </div>
-
-      <div className="flex gap-0 relative w-full max-w-sm">
-        <input
-          type="text"
-          placeholder="https://deco.cx"
-          className="input input-sm rounded input-bordered w-full "
-          data-theme="black"
-        />
-        <button class="absolute right-1 top-1 btn btn-sm btn-primary -ml-2 h-6 min-h-6 py-0 text-xs">
-          Fetch URL
-        </button>
-      </div>
     </div>
   );
 }
