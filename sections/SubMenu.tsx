@@ -8,6 +8,7 @@ export default function Section() {
       <div className="flex gap-0 h-full">
         <button class="block h-full h-14 border-b hover:border-accent !border-white text-white btn-accent flex items-center justify-center text-center px-4 text-sm">Create</button>
         <button class="block h-full h-14 border-b hover:border-accent border-transparent btn-primary flex items-center justify-center text-center px-4 text-sm">Preview</button>
+        <button class="block h-full h-14 border-b hover:border-accent border-transparent btn-primary flex items-center justify-center text-center px-4 text-sm">Page Speed</button>
       </div>
     </div>
   );
