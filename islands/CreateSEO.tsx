@@ -68,13 +68,6 @@ export default function Section() {
     "noindex, nofollow",
   ];
 
-  const configPreview = {
-    title: "Exemplo de título",
-    description: "Exemplo de descrição do website",
-    url: "https://exemplo.com",
-    urlImage: "https://exemplo.com/imagem.jpg",
-  };
-
   const doSearch = useCallback(async () => {
     try {
       const response = await fetch(searchURL);
@@ -379,7 +372,7 @@ export default function Section() {
             Copy
           </button>
           <pre>
-            <code id="code">
+            <code id="code" class="text-xs">
             <span class="text-zinc-700">&lt;!-- HTML Meta Tags --&gt;</span><br />
             <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">charset</span>=&quot;<span class="text-white">{config.charset}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
             <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">viewport</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{config.viewport}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
@@ -425,9 +418,9 @@ export default function Section() {
         style="width: 33.3333%"
         class="flex-grow w-full mx-auto h-[calc(100vh-56px)] overflow-scroll border-r border-accent p-8 relative text-zinc-600"
       >
-        {/* <PreviewTest
+        <PreviewTest
           config={config}
-        /> */}
+        />
       </div>
     </div>
   );
