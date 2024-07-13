@@ -5,7 +5,7 @@ export default function Section() {
     <div className="w-full flex">
       <div
         style="width: 50%"
-        class="resize-x flex-grow w-full mx-auto h-[calc(100vh-56px)] overflow-x-hidden overflow-y-scroll border-r border-zinc-800 p-4"
+        class="resize-x flex-grow w-full mx-auto h-[calc(100vh-112px)] overflow-x-hidden overflow-y-scroll border-r border-accent p-4"
       >
         <div className="grid grid-cols-1 gap-8 w-full max-w-lg mx-auto py-10">
           <Test formName="Title" formNamePlaceholder="Page title" />
@@ -33,9 +33,9 @@ export default function Section() {
       </div>
       <div
         style="width: 50%"
-        class="flex-grow w-full mx-auto flex flex-col h-[calc(100vh-56px)] overflow-x-hidden overflow-y-scroll border-r border-zinc-800"
+        class="flex-grow w-full mx-auto h-[calc(100vh-112px)] overflow-x-hidden overflow-y-scroll border-r border-accent p-4"
       >
-        2
+        <div className=""></div>
       </div>
     </div>
   );
