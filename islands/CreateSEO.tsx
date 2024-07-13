@@ -2,6 +2,10 @@ import { useCallback, useEffect, useRef, useState } from "preact/hooks";
 
 import Input from "../components/Input.tsx";
 import Select from "../components/Select.tsx";
+import Image from "../components/Image.tsx";
+import Favicon from "../components/Favicon.tsx";
+import Color from "../components/Color.tsx";
+import PreviewSEO from "site/islands/PreviewSEO.tsx";
 
 export default function Section() {
   const [searchURL, setSearchURL] = useState("https://gus.vision/");
@@ -12,9 +16,9 @@ export default function Section() {
     title: "",
     description: "",
     canonicalURL: "",
-    imageURL: "",
+    imageURL: "/image.jpg",
     imageAltText: "",
-    favicon: "favicon.ico",
+    favicon: "/favicon.ico",
     pageAuthor: "",
     robots: "index, follow",
     themeColor: "",
@@ -76,15 +80,54 @@ export default function Section() {
       setConfig({
         ...config,
         ...{
-          title: doc.querySelector("title")?.innerText || "",
-          description: doc.querySelector('meta[name="description"]')?.getAttribute(
+          charset:
+            doc.querySelector("meta[charset]")?.getAttribute("charset") || "",
+          viewport: doc.querySelector('meta[name="viewport"]')?.getAttribute(
             "content",
           ) || "",
-          imageURL: doc.querySelector('meta[property="og:image"]')?.getAttribute(
+          pageAuthor:
+            doc.querySelector('meta[name="author"]')?.getAttribute("content") ||
+            "",
+          themeColor:
+            doc.querySelector('meta[name="theme-color"]')?.getAttribute(
+              "content",
+            ) || "",
+          robots:
+            doc.querySelector('meta[name="robots"]')?.getAttribute("content") ||
+            "",
+          canonicalURL:
+            doc.querySelector('link[rel="canonical"]')?.getAttribute(
+              "href",
+            ) || "",
+          favicon:
+            doc.querySelector('link[rel="icon"]')?.getAttribute("href") ||
+            "",
+          title: doc.querySelector("title")?.innerText || "",
+          description:
+            doc.querySelector('meta[name="description"]')?.getAttribute(
+              "content",
+            ) || "",
+          imageURL:
+            doc.querySelector('meta[property="og:image"]')?.getAttribute(
+              "content",
+            ) || "",
+          locale: doc.querySelector('meta[property="og:locale"]')?.getAttribute(
             "content",
-          ) || ""
-        }
+          ) || "",
+          imageAltText:
+            doc.querySelector('meta[name="twitter:image:alt"]')?.getAttribute(
+              "content",
+            ) || "",
+          pageSite:
+            doc.querySelector('meta[name="twitter:site"]')?.getAttribute(
+              "content",
+            ) || "",
+        },
       });
+      console.log(
+        "robots",
+        doc.querySelector('meta[name="robots"]')?.getAttribute("content"),
+      );
     } catch (error) {
       console.log(error);
     }
@@ -161,11 +204,11 @@ export default function Section() {
   return (
     <div className="w-full flex">
       <div
-        style="width: 50%"
-        class="resize-x flex-grow w-full mx-auto h-[calc(100vh-112px)] overflow-x-hidden overflow-y-scroll border-r border-accent p-4"
+        style="width: 33.3333%"
+        class="resize-x flex-grow w-full mx-auto h-[calc(100vh-56px)] overflow-x-hidden overflow-y-scroll border-r border-accent p-4"
       >
         <div className="grid grid-cols-1 gap-8 w-full max-w-lg mx-auto py-10">
-          <div className="flex flex-col gap-1 text-center w-full mx-auto bg-accent/30 border border-accent/40 rounded p-4 md:p-8 mb-4">
+          <div className="flex flex-col gap-1 text-center w-full mx-auto bg-primary border border-accent/30 rounded p-4 md:p-8 mb-4">
             <label class="text-center text-sm text-white">
               Preview, edit, and generate your metatags
             </label>
@@ -186,6 +229,21 @@ export default function Section() {
                 Fetch URL
               </button>
             </div>
+            <span class="text-xs flex gap-2 flex-wrap justify-center items-center text-center">
+              <span
+                class="cursor-pointer hover:underline"
+                onClick={importConfig}
+              >
+                Import (JSON)
+              </span>
+              <span>or</span>
+              <span
+                class="cursor-pointer hover:underline"
+                onClick={exportConfig}
+              >
+                Export (JSON)
+              </span>
+            </span>
           </div>
           <Select
             formName="Charset"
@@ -232,7 +290,7 @@ export default function Section() {
             setValue={(val: string) =>
               setConfig({ ...config, ...{ canonicalURL: val } })}
           />
-          <Input
+          <Image
             formName="Image URL"
             formNamePlaceholder="https://deco.cx/assets/image.jpg"
             formType="text"
@@ -250,9 +308,9 @@ export default function Section() {
             setValue={(val: string) =>
               setConfig({ ...config, ...{ imageAltText: val } })}
           />
-          <Input
+          <Favicon
             formName="Favicon"
-            formNamePlaceholder="Favicon path"
+            formNamePlaceholder="favicon.ico"
             formType="text"
             formDescription="Specifies the favicon, enhancing website recognition in browsers and bookmarks."
             value={config.favicon}
@@ -276,7 +334,7 @@ export default function Section() {
               setConfig({ ...config, ...{ robots: val } })}
             options={robotsOptions}
           />
-          <Input
+          <Color
             formName="Theme color"
             formNamePlaceholder="Page theme color"
             formType="color"
@@ -306,25 +364,12 @@ export default function Section() {
           <button class="btn btn-sm btn-secondary">Preview</button>
         </div>
       </div>
+
       <div
-        style="width: 50%"
-        class="flex-grow w-full mx-auto h-[calc(100vh-112px)] overflow-scroll border-r border-accent p-8 relative text-zinc-600"
+        style="width: 33.3333%"
+        class="flex-grow w-full mx-auto h-[calc(100vh-56px)] overflow-scroll border-r border-accent p-8 relative text-zinc-600"
       >
-        <div className=" ">
-          <div class="flex flex-wrap gap-2 absolute right-2 bottom-2">
-            <button
-              class="flex-1 btn btn-sm btn-primary whitespace-nowrap"
-              onClick={importConfig}
-            >
-              Import (JSON)
-            </button>
-            <button
-              class="flex-1 btn btn-sm btn-primary whitespace-nowrap"
-              onClick={exportConfig}
-            >
-              Export (JSON)
-            </button>
-          </div>
+        <div className="">
           <button
             class="absolute right-2 top-2 btn btn-sm btn-primary"
             onClick={copyContent}
@@ -372,6 +417,13 @@ export default function Section() {
           frameborder="0"
         >
         </iframe>
+      </div>
+
+      <div
+        style="width: 33.3333%"
+        class="flex-grow w-full mx-auto h-[calc(100vh-56px)] overflow-scroll border-r border-accent p-8 relative text-zinc-600"
+      >
+        <PreviewSEO></PreviewSEO>
       </div>
     </div>
   );

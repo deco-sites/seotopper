@@ -7,9 +7,6 @@
       "name": "Seotopper"
     },
     {
-      "__resolveType": "site/sections/SubMenu.tsx"
-    },
-    {
       "__resolveType": "site/sections/CreateSEO.tsx"
     }
   ],
