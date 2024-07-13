@@ -1,7 +1,5 @@
 import { useSection } from "deco/hooks/useSection.ts";
 
-import Teste from '../islands/Test.tsx'
-
 export interface Props {
   /**
    * @format rich-text
@@ -26,7 +24,6 @@ export default function Section({ name = "It Works!", count = 0 }: Props) {
       id="it-works"
       class="container py-10 flex flex-col h-screen w-full items-center justify-center gap-16"
     >
-      <Teste></Teste>
       <div
         class="leading-10 text-6xl"
         dangerouslySetInnerHTML={{

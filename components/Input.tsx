@@ -7,14 +7,13 @@ interface Props {
   /**
    * @format text-input
    */
-  pageTitle?: string;
+  value?: string;
+  setValue?: Function;
 }
 
-export default function NameDisplay(
-  { pageTitle = "", formName = "", formNamePlaceholder = "" }: Props,
+export default function Input(
+  { formName = "", formNamePlaceholder = "", value = "", setValue }: Props,
 ) {
-  const [name, setName] = useState(pageTitle);
-
   return (
     <div class="grid grid-cols-2 gap-4 p-4">
       <div>
@@ -25,8 +24,8 @@ export default function NameDisplay(
           <span className="font-bold">{formName}</span>
           <input
             type="text"
-            value={name}
-            onInput={(e) => setName((e.target as HTMLInputElement).value)}
+            value={value}
+            onInput={(e: InputEvent) => setValue && setValue((e.target as HTMLInputElement).value)}
             placeholder={formNamePlaceholder}
             className="grow"
             data-theme="black"
