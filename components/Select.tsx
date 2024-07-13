@@ -2,37 +2,42 @@ interface Props {
   formName?: string;
   formNamePlaceholder?: string;
   formDescription?: string;
-  formType?: string;
 
   /**
-   * @format text-input
+   * @format select
    */
   value?: string;
-  setValue?: Function;
+  setValue?: (value: string) => void;
+  options: string[];
 }
 
-export default function Input(
+export default function Select(
   {
     formName = "",
     formNamePlaceholder = "",
     formDescription = "",
-    formType = "",
     value = "",
     setValue,
+    options,
   }: Props,
 ) {
   return (
     <div className="flex flex-col gap-1 w-full">
       <label className="text-sm">{formName}</label>
-      <input
-        type={formType}
+      <select
         value={value}
-        onInput={(e: InputEvent) =>
+        onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
           setValue && setValue((e.target as HTMLInputElement).value)}
         placeholder={formNamePlaceholder}
-        className="input input-sm text-xs input-bordered rounded w-full"
+        className="select select-sm text-xs select-bordered rounded w-full"
         data-theme="black"
-      />
+      >
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
       <div className="w-full text-xs text-zinc-400">{formDescription}</div>
     </div>
   );

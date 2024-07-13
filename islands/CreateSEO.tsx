@@ -1,10 +1,11 @@
 import { useCallback, useRef, useState } from "preact/hooks";
 
 import Input from "../components/Input.tsx";
+import Select from "../components/Select.tsx";
 
 export default function Section() {
   const [searchURL, setSearchURL] = useState("https://gus.vision/");
-  const [charset, setCharset] = useState("utf-8");
+  const [charset, setCharset] = useState("UTF-8");
   const [viewport, setViewport] = useState(
     "width=device-width, initial-scale=1",
   );
@@ -19,6 +20,48 @@ export default function Section() {
   const [themeColor, setThemeColor] = useState("");
   const [locale, setLocale] = useState("");
   const [pageSite, setPageSite] = useState("");
+
+  const options = [
+    "UTF-8", // Universal character set for almost all characters
+    "ISO-8859-1", // Western European (Latin-1)
+    "ISO-8859-2", // Central European (Latin-2)
+    "ISO-8859-3", // South European (Latin-3)
+    "ISO-8859-4", // North European (Latin-4)
+    "ISO-8859-5", // Cyrillic (Latin/Cyrillic)
+    "ISO-8859-6", // Arabic (Latin/Arabic)
+    "ISO-8859-7", // Greek (Latin/Greek)
+    "ISO-8859-8", // Hebrew (Latin/Hebrew)
+    "ISO-8859-9", // Turkish (Latin-5)
+    "ISO-8859-10", // Nordic (Latin-6)
+    "ISO-8859-11", // Thai (Latin/Thai)
+    "ISO-8859-13", // Baltic (Latin-7)
+    "ISO-8859-14", // Celtic (Latin-8)
+    "ISO-8859-15", // Western European with Euro (Latin-9)
+    "ISO-8859-16", // South-Eastern European (Latin-10)
+    "Windows-1250", // Central and Eastern European
+    "Windows-1251", // Cyrillic
+    "Windows-1252", // Western European
+    "Windows-1253", // Greek
+    "Windows-1254", // Turkish
+    "Windows-1255", // Hebrew
+    "Windows-1256", // Arabic
+    "Windows-1257", // Baltic
+    "Windows-1258", // Vietnamese
+    "KOI8-R", // Russian
+    "KOI8-U", // Ukrainian
+    "GB18030", // Simplified Chinese
+    "Big5", // Traditional Chinese
+    "Shift_JIS", // Japanese
+    "EUC-JP", // Japanese
+    "EUC-KR", // Korean
+  ];
+
+  const robotsOptions = [
+    "index, follow",
+    "noindex, follow",
+    "index, nofollow",
+    "noindex, nofollow",
+  ];
 
   const doSearch = useCallback(async () => {
     try {
@@ -93,94 +136,105 @@ export default function Section() {
               </button>
             </div>
           </div>
-
-          <Input
+          <Select
             formName="Charset"
-            formNamePlaceholder="Page charset"
-            formDescription=""
+            formDescription="Specifies the character encoding for the HTML document, ensuring proper display of text."
             value={charset}
             setValue={setCharset}
+            options={options}
           />
+
           <Input
             formName="Viewport"
             formNamePlaceholder="Page viewport"
-            formDescription=""
+            formType="text"
+            formDescription="Controls the layout and scaling of a webpage on different devices, improving responsiveness and user experience."
             value={viewport}
             setValue={setViewport}
           />
           <Input
             formName="Title"
             formNamePlaceholder="Page title"
-            formDescription=""
+            formType="text"
+            formDescription="Defines the title of the HTML document, displaying text in the browser tab and aiding in search engine optimization (SEO)."
             value={title}
             setValue={setTitle}
           />
           <Input
             formName="Description"
             formNamePlaceholder="Page description"
-            formDescription=""
+            formType="text"
+            formDescription="Provides a concise summary of the webpage's content, often used by search engines to display in search results, enhancing click-through rates."
             value={description}
             setValue={setDescription}
           />
           <Input
             formName="Canonical URL"
             formNamePlaceholder="Page URL"
-            formDescription=""
+            formType="text"
+            formDescription="Specifies the preferred URL for a webpage, consolidating search engine ranking signals and avoiding duplicate content issues."
             value={canonicalURL}
             setValue={setCanonicalURL}
           />
           <Input
             formName="Image URL"
             formNamePlaceholder="https://deco.cx/assets/image.jpg"
-            formDescription=""
+            formType="text"
+            formDescription="Specifies the image displayed when sharing the webpage on platforms like Facebook, enhancing visual appeal."
             value={imageURL}
             setValue={setImageURL}
           />
           <Input
             formName="Image ALT text"
             formNamePlaceholder="Image alt text"
-            formDescription=""
+            formType="text"
+            formDescription="Provides alternative text for the image specified in og:image, improving accessibility and SEO when shared on platforms supporting Open Graph."
             value={imageAltText}
             setValue={setImageAltText}
           />
           <Input
             formName="Favicon"
             formNamePlaceholder="Favicon path"
-            formDescription=""
+            formType="text"
+            formDescription="Specifies the favicon, enhancing website recognition in browsers and bookmarks."
             value={favicon}
             setValue={setFavicon}
           />
           <Input
             formName="Page author"
             formNamePlaceholder="Page author"
-            formDescription=""
+            formType="text"
+            formDescription="Specifies the author of the webpage, providing attribution for content creation and ownership."
             value={pageAuthor}
             setValue={setPageAuthor}
           />
-          <Input
+          <Select
             formName="Robots"
-            formNamePlaceholder="index, follow"
-            formDescription=""
+            formDescription="Controls how search engines index and display content, influencing webpage visibility and accessibility in search results."
             value={robots}
             setValue={setRobots}
+            options={robotsOptions}
           />
           <Input
             formName="Theme color"
             formNamePlaceholder="Page theme color"
-            formDescription=""
+            formType="color"
+            formDescription="Defines the color theme for the browser's UI elements when a webpage is viewed on mobile devices, enhancing user experience and brand consistency."
             value={themeColor}
             setValue={setThemeColor}
           />
           <Input
             formName="Locale"
             formNamePlaceholder="Page locale"
-            formDescription=""
+            formType="text"
+            formDescription="Defines the language and region of a webpage, aiding in content and regional settings adaptation."
             value={locale}
             setValue={setLocale}
           />
           <Input
             formName="Page site"
             formNamePlaceholder="Page site"
+            formType="text"
             formDescription="The Twitter “@username” the card should be attributed to."
             value={pageSite}
             setValue={setPageSite}
