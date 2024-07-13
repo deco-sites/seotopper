@@ -16,7 +16,7 @@ export default function Section({ name = "Seotopper" }: Props) {
       <div class="flex items-center gap-3">
         <img
           src="https://seotopper.netlify.app/assets/top.svg"
-          class="max-w-full w-5"
+          class="max-w-full w-5 font-bold"
           alt="Logo SeoTopper"
         />
         <span class="hidden md:block text-sm md:text-base font-medium">
