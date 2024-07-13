@@ -4,21 +4,22 @@ import Input from "../components/Input.tsx";
 
 export default function Section() {
   const [searchURL, setSearchURL] = useState("https://gus.vision/");
-  const [charset, setCharset] = useState("utf-8");
-  const [viewport, setViewport] = useState(
-    "width=device-width, initial-scale=1",
-  );
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [canonicalURL, setCanonicalURL] = useState("");
-  const [imageURL, setImageURL] = useState("");
-  const [imageAltText, setImageAltText] = useState("");
-  const [favicon, setFavicon] = useState("favicon.ico");
-  const [pageAuthor, setPageAuthor] = useState("");
-  const [robots, setRobots] = useState("index, follow");
-  const [themeColor, setThemeColor] = useState("");
-  const [locale, setLocale] = useState("");
-  const [pageSite, setPageSite] = useState("");
+  
+  const [config, setConfig] = useState({
+    charset: "utf-8",
+    viewport: "width=device-width, initial-scale=1",
+    title: "",
+    description: "",
+    canonicalURL: "",
+    imageURL: "",
+    imageAltText: "",
+    favicon: "favicon.ico",
+    pageAuthor: "",
+    robots: "index, follow",
+    themeColor: "",
+    locale: "",
+    pageSite: "",
+  })
 
   const doSearch = useCallback(async () => {
     try {
@@ -29,21 +30,21 @@ export default function Section() {
 
       const doc = parser.parseFromString(html, "text/html");
 
-      setTitle(doc.querySelector("title")?.innerText || "");
-      setDescription(
-        doc.querySelector('meta[name="description"]')?.getAttribute(
+      setConfig({ ...config, ...{ title: doc.querySelector("title")?.innerText || "" } });
+      setConfig({ ...config, ...{
+        description: doc.querySelector('meta[name="description"]')?.getAttribute(
+          "content",
+        ) || ""
+      }})
+      setConfig({ ...config, ...{
+        imageURL: doc.querySelector('meta[property="og:image"]')?.getAttribute(
           "content",
         ) || "",
-      );
-      setImageURL(
-        doc.querySelector('meta[property="og:image"]')?.getAttribute(
-          "content",
-        ) || "",
-      );
+      }})
     } catch (error) {
       console.log(error);
     }
-  }, [searchURL]);
+  }, [searchURL, config]);
 
   const copyContent = () => {
     console.log("copyContent");
@@ -63,6 +64,49 @@ export default function Section() {
   const loadedURL = useCallback(() => {
     console.log(iframe.current);
   }, [iframe]);
+
+  const importConfig = useCallback(() => {
+    const input = document.createElement('input')
+
+    input.type = 'file'
+
+    input.onchange = () => {
+      if (input.value && input.files) {
+        const file = input.files[0]
+
+        if (file) {
+          const reader = new FileReader()
+
+          reader.onloadend = () => {
+            try {
+              const data = JSON.parse(reader.result as string)
+              
+              setConfig({ ...config, ...data })
+            } catch (error) {
+              console.log('Invalid JSON', error)
+            }
+          }
+
+          reader.onerror = () => {
+            console.log('Failed to read file', reader.error);
+          }
+
+          reader.readAsText(file)
+        }
+      }
+    }
+
+    input.click()
+  }, [config])
+
+  const exportConfig = useCallback(() => {
+    const link = document.createElement('a')
+
+    link.href = `data:text/plain;charset=utf-8,${encodeURIComponent(JSON.stringify(config))}`
+    link.download = 'config.json'
+
+    link.click()
+  }, [config])
 
   return (
     <div className="w-full flex">
@@ -98,94 +142,98 @@ export default function Section() {
             formName="Charset"
             formNamePlaceholder="Page charset"
             formDescription=""
-            value={charset}
-            setValue={setCharset}
+            value={config.charset}
+            setValue={(val: string) => setConfig({ ...config, ...{ charset: val } })}
           />
           <Input
             formName="Viewport"
             formNamePlaceholder="Page viewport"
             formDescription=""
-            value={viewport}
-            setValue={setViewport}
+            value={config.viewport}
+            setValue={(val: string) => setConfig({ ...config, ...{ viewport: val } })}
           />
           <Input
             formName="Title"
             formNamePlaceholder="Page title"
             formDescription=""
-            value={title}
-            setValue={setTitle}
+            value={config.title}
+            setValue={(val: string) => setConfig({ ...config, ...{ title: val } })}
           />
           <Input
             formName="Description"
             formNamePlaceholder="Page description"
             formDescription=""
-            value={description}
-            setValue={setDescription}
+            value={config.description}
+            setValue={(val: string) => setConfig({ ...config, ...{ description: val } })}
           />
           <Input
             formName="Canonical URL"
             formNamePlaceholder="Page URL"
             formDescription=""
-            value={canonicalURL}
-            setValue={setCanonicalURL}
+            value={config.canonicalURL}
+            setValue={(val: string) => setConfig({ ...config, ...{ canonicalURL: val } })}
           />
           <Input
             formName="Image URL"
             formNamePlaceholder="https://deco.cx/assets/image.jpg"
             formDescription=""
-            value={imageURL}
-            setValue={setImageURL}
+            value={config.imageURL}
+            setValue={(val: string) => setConfig({ ...config, ...{ imageURL: val } })}
           />
           <Input
             formName="Image ALT text"
             formNamePlaceholder="Image alt text"
             formDescription=""
-            value={imageAltText}
-            setValue={setImageAltText}
+            value={config.imageAltText}
+            setValue={(val: string) => setConfig({ ...config, ...{ imageAltText: val } })}
           />
           <Input
             formName="Favicon"
             formNamePlaceholder="Favicon path"
             formDescription=""
-            value={favicon}
-            setValue={setFavicon}
+            value={config.favicon}
+            setValue={(val: string) => setConfig({ ...config, ...{ favicon: val } })}
           />
           <Input
             formName="Page author"
             formNamePlaceholder="Page author"
             formDescription=""
-            value={pageAuthor}
-            setValue={setPageAuthor}
+            value={config.pageAuthor}
+            setValue={(val: string) => setConfig({ ...config, ...{ pageAuthor: val } })}
           />
           <Input
             formName="Robots"
             formNamePlaceholder="index, follow"
             formDescription=""
-            value={robots}
-            setValue={setRobots}
+            value={config.robots}
+            setValue={(val: string) => setConfig({ ...config, ...{ robots: val } })}
           />
           <Input
             formName="Theme color"
             formNamePlaceholder="Page theme color"
             formDescription=""
-            value={themeColor}
-            setValue={setThemeColor}
+            value={config.themeColor}
+            setValue={(val: string) => setConfig({ ...config, ...{ themeColor: val } })}
           />
           <Input
             formName="Locale"
             formNamePlaceholder="Page locale"
             formDescription=""
-            value={locale}
-            setValue={setLocale}
+            value={config.locale}
+            setValue={(val: string) => setConfig({ ...config, ...{ locale: val } })}
           />
           <Input
             formName="Page site"
             formNamePlaceholder="Page site"
             formDescription="The Twitter “@username” the card should be attributed to."
-            value={pageSite}
-            setValue={setPageSite}
+            value={config.pageSite}
+            setValue={(val: string) => setConfig({ ...config, ...{ pageSite: val } })}
           />
           <button class="btn btn-sm btn-secondary">Preview</button>
+          <div class="flex gap-2">
+            <button class="flex-1 btn btn-sm btn-secondary" onClick={importConfig}>Import</button>
+            <button class="flex-1 btn btn-sm btn-secondary" onClick={exportConfig}>Export</button>
+          </div>
         </div>
       </div>
       <div
@@ -202,31 +250,31 @@ export default function Section() {
           <pre>
             <code id="code">
             <span class="text-zinc-700">&lt;!-- HTML Meta Tags --&gt;</span><br />
-            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">charset</span>=&quot;<span class="text-white">{charset}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
-            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">viewport</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{viewport}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
-            <span class="text-zinc-400">&lt;</span>title<span class="text-zinc-400">&gt;</span><span class="text-white">{title}</span><span class="text-zinc-400">&lt;/</span>title<span class="text-zinc-400">&gt;</span><br />
-            <span class="text-zinc-400">&lt;</span>link <span class="text-zinc-300">rel</span>=&quot;<span class="text-white">canonical</span>&quot; <span class="text-zinc-300">href</span>=&quot;<span class="text-white">{canonicalURL}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
-            <span class="text-zinc-400">&lt;</span>link <span class="text-zinc-300">rel</span>=&quot;<span class="text-white">icon</span>&quot; type=&quot;<span class="text-white">image/x-icon</span>&quot; <span class="text-zinc-300">href</span>=&quot;<span class="text-white">{favicon}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
-            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">robots</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{robots}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
-            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">description</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{description}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
-            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">author</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{pageAuthor}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
-            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">theme-color</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{themeColor}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
+            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">charset</span>=&quot;<span class="text-white">{config.charset}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
+            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">viewport</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{config.viewport}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
+            <span class="text-zinc-400">&lt;</span>title<span class="text-zinc-400">&gt;</span><span class="text-white">{config.title}</span><span class="text-zinc-400">&lt;/</span>title<span class="text-zinc-400">&gt;</span><br />
+            <span class="text-zinc-400">&lt;</span>link <span class="text-zinc-300">rel</span>=&quot;<span class="text-white">canonical</span>&quot; <span class="text-zinc-300">href</span>=&quot;<span class="text-white">{config.canonicalURL}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
+            <span class="text-zinc-400">&lt;</span>link <span class="text-zinc-300">rel</span>=&quot;<span class="text-white">icon</span>&quot; type=&quot;<span class="text-white">image/x-icon</span>&quot; <span class="text-zinc-300">href</span>=&quot;<span class="text-white">{config.favicon}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
+            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">robots</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{config.robots}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
+            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">description</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{config.description}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
+            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">author</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{config.pageAuthor}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
+            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">theme-color</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{config.themeColor}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
             <br />
             <span class="text-zinc-700">&lt;!-- Facebook Meta Tags --&gt;</span><br />
-            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">property</span>=&quot;<span class="text-white">og:url</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{canonicalURL}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
+            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">property</span>=&quot;<span class="text-white">og:url</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{config.canonicalURL}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
             <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">property</span>=&quot;<span class="text-white">og:type</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">website</span>&quot;<span class="text-zinc-400">&gt;</span><br />
-            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">property</span>=&quot;<span class="text-white">og:title</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{title}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
-            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">property</span>=&quot;<span class="text-white">og:description</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{description}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
-            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">property</span>=&quot;<span class="text-white">og:image</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{imageURL}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
-            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">property</span>=&quot;<span class="text-white">og:locale</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{locale}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
+            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">property</span>=&quot;<span class="text-white">og:title</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{config.title}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
+            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">property</span>=&quot;<span class="text-white">og:description</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{config.description}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
+            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">property</span>=&quot;<span class="text-white">og:image</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{config.imageURL}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
+            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">property</span>=&quot;<span class="text-white">og:locale</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{config.locale}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
             <br />
             <span class="text-zinc-700">&lt;!-- Twitter Meta Tags --&gt;</span><br />
             <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">twitter:card</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">summary</span>&quot;<span class="text-zinc-400">&gt;</span><br />
-            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">twitter:title</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{title}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
-            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">twitter:site</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{pageSite}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
-            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">twitter:description</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{description}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
-            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">twitter:image</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{imageURL}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
-            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">twitter:image:alt</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{imageAltText}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
+            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">twitter:title</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{config.title}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
+            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">twitter:site</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{config.pageSite}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
+            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">twitter:description</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{config.description}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
+            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">twitter:image</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{config.imageURL}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
+            <span class="text-zinc-400">&lt;</span>meta <span class="text-zinc-300">name</span>=&quot;<span class="text-white">twitter:image:alt</span>&quot; <span class="text-zinc-300">content</span>=&quot;<span class="text-white">{config.imageAltText}</span>&quot;<span class="text-zinc-400">&gt;</span><br />
             <span class="text-zinc-700">&lt;!-- Meta Tags Generated via SeoTopper --&gt;</span>
             </code>
           </pre>
