@@ -28,9 +28,9 @@ export default function Section({ name = "Seotopper" }: Props) {
         <button class="h-14 border-b hover:border-accent !border-white text-white btn-accent flex items-center justify-center text-center px-4 text-sm">
           Create
         </button>
-        <button class="h-14 border-b hover:border-accent border-transparent btn-primary flex items-center justify-center text-center px-4 text-sm">
+        {/* <button class="h-14 border-b hover:border-accent border-transparent btn-primary flex items-center justify-center text-center px-4 text-sm">
           Preview
-        </button>
+        </button> */}
         <button class="h-14 border-b hover:border-accent border-transparent btn-primary flex items-center justify-center text-center px-4 text-sm">
           Page Speed
         </button>

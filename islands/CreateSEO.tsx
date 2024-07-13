@@ -5,7 +5,7 @@ import Select from "../components/Select.tsx";
 import Image from "../components/Image.tsx";
 import Favicon from "../components/Favicon.tsx";
 import Color from "../components/Color.tsx";
-import PreviewSEO from "site/islands/PreviewSEO.tsx";
+import PreviewTest from "site/sections/PreviewTest.tsx";
 
 export default function Section() {
   const [searchURL, setSearchURL] = useState("https://gus.vision/");
@@ -67,6 +67,13 @@ export default function Section() {
     "index, nofollow",
     "noindex, nofollow",
   ];
+
+  const configPreview = {
+    title: "Exemplo de título",
+    description: "Exemplo de descrição do website",
+    url: "https://exemplo.com",
+    urlImage: "https://exemplo.com/imagem.jpg",
+  };
 
   const doSearch = useCallback(async () => {
     try {
@@ -236,13 +243,6 @@ export default function Section() {
               >
                 Import (JSON)
               </span>
-              <span>or</span>
-              <span
-                class="cursor-pointer hover:underline"
-                onClick={exportConfig}
-              >
-                Export (JSON)
-              </span>
             </span>
           </div>
           <Select
@@ -361,7 +361,9 @@ export default function Section() {
             setValue={(val: string) =>
               setConfig({ ...config, ...{ pageSite: val } })}
           />
-          <button class="btn btn-sm btn-secondary">Preview</button>
+          <button onClick={exportConfig} class="btn btn-sm btn-primary">
+            Export (JSON)
+          </button>
         </div>
       </div>
 
@@ -423,7 +425,9 @@ export default function Section() {
         style="width: 33.3333%"
         class="flex-grow w-full mx-auto h-[calc(100vh-56px)] overflow-scroll border-r border-accent p-8 relative text-zinc-600"
       >
-        <PreviewSEO></PreviewSEO>
+        {/* <PreviewTest
+          config={config}
+        /> */}
       </div>
     </div>
   );
