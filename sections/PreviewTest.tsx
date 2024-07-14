@@ -24,15 +24,11 @@ export default function PreviewTest(config?: any) {
         </div>
         <div className="w-full border border-zinc-800 rounded overflow-hidden">
           <div className="bg-primary w-full h-64 min-h-64 overflow-hidden">
-            {config?.urlImage
-              ? (
-                <img
-                  src={config?.urlImage}
-                  className="border-0 outline-none w-full min-h-64 h-64 object-cover object-center"
-                  width="100%"
-                />
-              )
-              : ""}
+            <img
+              src={config?.urlImage}
+              className="border-0 outline-none w-full min-h-64 h-64 object-cover object-center"
+              width="100%"
+            />
           </div>
           <div className="w-full flex flex-col gap-1 p-4">
             <div className="text-base text-zinc-200 font-medium">

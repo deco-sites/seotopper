@@ -16,7 +16,7 @@ export default function Section() {
     title: "",
     description: "",
     canonicalURL: "",
-    imageURL: "/image.jpg",
+    imageURL: "",
     imageAltText: "",
     favicon: "/favicon.ico",
     pageAuthor: "",
