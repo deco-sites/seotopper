@@ -5,7 +5,7 @@ import Select from "../components/Select.tsx";
 import Image from "../components/Image.tsx";
 import Favicon from "../components/Favicon.tsx";
 import Color from "../components/Color.tsx";
-import PreviewTest from "site/sections/PreviewTest.tsx";
+import Preview from "../components/Preview.tsx";
 
 export default function Section() {
   const [searchURL, setSearchURL] = useState("https://gus.vision/");
@@ -70,64 +70,35 @@ export default function Section() {
 
   const doSearch = useCallback(async () => {
     try {
-      const response = await fetch(searchURL);
-      const html = await response.text();
+      let response: any = await fetch(`https://service.userjapa.me/api/scrap?url=${searchURL}`);
 
-      const parser = new DOMParser();
+      response = await response.json();
+      
+      if (!response.success) {
+        console.log(response.message);
+        return
+      }
 
-      const doc = parser.parseFromString(html, "text/html");
+      const { data } = response
 
       setConfig({
         ...config,
         ...{
-          charset:
-            doc.querySelector("meta[charset]")?.getAttribute("charset") || "",
-          viewport: doc.querySelector('meta[name="viewport"]')?.getAttribute(
-            "content",
-          ) || "",
-          pageAuthor:
-            doc.querySelector('meta[name="author"]')?.getAttribute("content") ||
-            "",
-          themeColor:
-            doc.querySelector('meta[name="theme-color"]')?.getAttribute(
-              "content",
-            ) || "",
-          robots:
-            doc.querySelector('meta[name="robots"]')?.getAttribute("content") ||
-            "",
-          canonicalURL:
-            doc.querySelector('link[rel="canonical"]')?.getAttribute(
-              "href",
-            ) || "",
-          favicon:
-            doc.querySelector('link[rel="icon"]')?.getAttribute("href") ||
-            "",
-          title: doc.querySelector("title")?.innerText || "",
-          description:
-            doc.querySelector('meta[name="description"]')?.getAttribute(
-              "content",
-            ) || "",
-          imageURL:
-            doc.querySelector('meta[property="og:image"]')?.getAttribute(
-              "content",
-            ) || "",
-          locale: doc.querySelector('meta[property="og:locale"]')?.getAttribute(
-            "content",
-          ) || "",
-          imageAltText:
-            doc.querySelector('meta[name="twitter:image:alt"]')?.getAttribute(
-              "content",
-            ) || "",
-          pageSite:
-            doc.querySelector('meta[name="twitter:site"]')?.getAttribute(
-              "content",
-            ) || "",
+          charset: data.charset,
+          viewport: data.viewport,
+          pageAuthor: data.pageAuthor,
+          themeColor: data.themeColor,
+          robots: data.robots,
+          canonicalURL: data.canonicalURL,
+          favicon: data.favicon,
+          title: data.title,
+          description: data.description,
+          imageURL: data.imageURL,
+          locale: data.locale,
+          imageAltText: data.imageAltText,
+          pageSite: data.pageSite,
         },
       });
-      console.log(
-        "robots",
-        doc.querySelector('meta[name="robots"]')?.getAttribute("content"),
-      );
     } catch (error) {
       console.log(error);
     }
@@ -145,12 +116,6 @@ export default function Section() {
       });
     }
   };
-
-  const iframe = useRef(null);
-
-  const loadedURL = useCallback(() => {
-    console.log(iframe.current);
-  }, [iframe]);
 
   const importConfig = useCallback(() => {
     const input = document.createElement("input");
@@ -413,22 +378,13 @@ export default function Section() {
             </code>
           </pre>
         </div>
-
-        <iframe
-          ref={iframe}
-          onLoad={loadedURL}
-          class="w-full h-full mt-8 hidden"
-          src={searchURL}
-          frameborder="0"
-        >
-        </iframe>
       </div>
 
       <div
         style="width: 33.3333%"
         class="flex-grow w-full mx-auto h-[calc(100vh-56px)] overflow-y-scroll overflow-x-auto border-r border-accent relative text-zinc-600 p-4 md:p-8"
       >
-        <PreviewTest
+        <Preview
           config={config}
         />
       </div>

@@ -12,7 +12,7 @@ import * as $$$$$$3 from "./sections/CreateSEO.tsx";
 import * as $$$$$$4 from "./sections/Footer.tsx";
 import * as $$$$$$5 from "./sections/ItWorks.tsx";
 import * as $$$$$$6 from "./sections/Menu.tsx";
-import * as $$$$$$7 from "./sections/PreviewSEO.tsx";
+import * as $$$$$$7 from "./sections/PreviewTest.tsx";
 import * as $$$$$$8 from "./sections/SubMenu.tsx";
 import * as $$$$$$9 from "./sections/Theme/Theme.tsx";
 
@@ -25,7 +25,7 @@ const manifest = {
     "site/sections/Footer.tsx": $$$$$$4,
     "site/sections/ItWorks.tsx": $$$$$$5,
     "site/sections/Menu.tsx": $$$$$$6,
-    "site/sections/PreviewSEO.tsx": $$$$$$7,
+    "site/sections/PreviewTest.tsx": $$$$$$7,
     "site/sections/SubMenu.tsx": $$$$$$8,
     "site/sections/Theme/Theme.tsx": $$$$$$9,
   },
