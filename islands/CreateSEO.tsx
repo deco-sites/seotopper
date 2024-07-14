@@ -162,10 +162,6 @@ export default function Section() {
     link.click();
   }, [config]);
 
-  useEffect(() => {
-    localStorage.setItem("SEO:CONFIG", JSON.stringify(config));
-  }, [config]);
-
   return (
     <div className="w-full flex">
       <div
